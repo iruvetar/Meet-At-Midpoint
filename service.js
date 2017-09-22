@@ -15,10 +15,13 @@ airportMap["SJC"] = "SJC airport";
 
 $(document).ready(function(){
 //    $("#alertMessage").hide();
-    $("#searchButton").on('click', scrollToMap);
+    $("#searchButton").on('click', searchFunctions);
     $(".dropdown-item").on('click', changeButtonText);
 })
 
+function searchFunctions() {
+    $("iframe").ready(scrollToMap);
+}
 function scrollToMap() {
     var place1 = $(".dropdown-toggle").first().text();
     var place2 = $(".dropdown-toggle").last().text();
