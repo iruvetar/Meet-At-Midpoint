@@ -14,6 +14,7 @@ airportMap.SJC = "SJC airport";
 
 //This function is used to process the response from QPX Express Airfare API
 function airfareResponse(responseJSON) {
+    $("#loadingIcon").hide();
     var responseObject = JSON.parse(responseJSON);
     console.log(responseObject);
     var leng = responseObject.trips.tripOption.length, context = '<h3>Lowest Airfare Price from departure (PIT) to the recommended place (Fixed to Denver now) </h3><b>(Beta version: result won\'t change given different inputs for now)</b><br><br>';
@@ -97,12 +98,14 @@ function scrollToMap() {
     } else if (place1 === place2) {
         alert("Hey you guys actually depart from the same place?");
     } else {
+        $("#loadingIcon").show();
         ajaxCallJsonp("https://iatacodes.org/api/v6/nearby.jsonp?&callback=?&api_key=f7d540ed-9d7c-4419-8f88-35d8bddbfc5d");
         mapReset(place1, place2);
         var targetOffset = $('#googleMapFrame').offset().top;
         $("html, body").animate({
         scrollTop: targetOffset + "px"
         }, 1000);
+
     }
     
 }
@@ -123,6 +126,7 @@ function changeButtonText() {
 }
 
 $(document).ready(function () {
+//    $("#loadingIcon").hide();
     $("#searchButton").on('click', searchFunctions);
     $(".dropdown-item").on('click', changeButtonText);
 });
