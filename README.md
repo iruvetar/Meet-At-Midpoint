@@ -13,12 +13,12 @@
 
 ## Resources 
 
-*Template is provided by [Start Bootstrap](http://startbootstrap.com/).
+* Template is provided by [Start Bootstrap](http://startbootstrap.com/).
 Start Bootstrap is an open source library of free Bootstrap templates and themes. All of the free templates and themes on Start Bootstrap are released under the MIT license, which means you can use them for any purpose, even for commercial projects.
-*Bootstrap
-*jQuery
-*Airport information is provided by [IATACodes](http://iatacodes.org/)
-*Google Map
+* Bootstrap
+* jQuery
+* Airport information is provided by [IATACodes](http://iatacodes.org/)
+* Google Map
 
 
 ## Copyright and License
