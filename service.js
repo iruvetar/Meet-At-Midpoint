@@ -13,60 +13,35 @@ airportMap.PIT = "PIT airport";
 airportMap.SJC = "SJC airport";
 
 function JsonCallback(data) {
-    console.log(data);
-    console.log(data.response.length);
-    for ( i = 0; i < 4; i++) {
+    var leng = data.response.length, context = '<h3>Some Possible Destinations for You</h3><b>(Beta version: result won\'t change given different inputs for now)</b><br><br>';
+    for ( i = 0; i < leng; i++) {
+    context += '<li>' + data.response[i].name + ' Airport (' + data.response[i].code + '), ' + data.response[i].country_name + '</li>'
 	console.log(data.response[i]);
     }
+    $(".response-area").html(context);
 }
 
 function ajaxCallJsonp (target) {
     //get request
+    //TO BE COMPLETE : right now the latitude and longtitude are fixed. But in the complete version, this information is expected to be provided given the midpoint between two locations
     var data = $.getJSON(target,
     {
         lat: "41",
         lng: "-102",
         distance: "100"
     }, JsonCallback);
-    
-    //empty content
-//    $(".response-area").html("");
-//    console.log(data);
-//    console.log(data[responseJSON]);
-//    for ( i = 0; i < 4; i++) {
-//	console.log(data.responseJSON.response[i]);
-//    }
-    //get data successfully
-//    data.success(function (msg) {
-//        $.each(msg.items, function (i,item) {
-//            
-//            $("#response-area").html();
-//            
-//            $("#response-area").append();
-//            
-//            if ( i == 3) {
-//                return false;
-//            }
-//        });
-//    });
-//    
-//    data.error(function (msg) {
-//        $("#response-area").html("fail getting data");
-//    });
-    
+     
 }
 
 function scrollToMap() {
     var place1 = $(".dropdown-toggle").first().text(), place2 = $(".dropdown-toggle").last().text();
     if (place1.search("Depart From") !== -1 || place2.search("Depart From") !== -1) {
-//    $("#alertMessage").show();
     alert("At least one location is missing!");
         return;
     } else if (place1 === place2) {
         alert("Hey you guys actually depart from the same place?");
     } else {
-        $("#alertMessage").hide();
-//        event.preventDefault();
+        ajaxCallJsonp("https://iatacodes.org/api/v6/nearby.jsonp?&callback=?&api_key=f7d540ed-9d7c-4419-8f88-35d8bddbfc5d");
         mapReset(place1, place2);
         var targetOffset = $('#googleMapFrame').offset().top;
         $("html, body").animate({
@@ -91,11 +66,6 @@ function changeButtonText() {
 }
 
 $(document).ready(function () {
-//    $("#alertMessage").hide();
     $("#searchButton").on('click', searchFunctions);
-    $("#searchButton").click(function(){
-        ajaxCallJsonp("https://iatacodes.org/api/v6/nearby.jsonp?&callback=?&api_key=f7d540ed-9d7c-4419-8f88-35d8bddbfc5d");
-    });
     $(".dropdown-item").on('click', changeButtonText);
-
 });
