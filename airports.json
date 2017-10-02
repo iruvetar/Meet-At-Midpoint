@@ -1,0 +1,7 @@
+{"Airport": [
+	{"Rank": "1", "Name": "Hartsfield–Jackson Atlanta International Airport", "City": "Atlanta", "State": "GA", "Total_Passenger_2016": 50476272},
+	{"Rank": "2", "Name": "Los Angeles International Airport", "City": "Los Angeles", "State": "CA", "Total_Passenger_2016": 39635691},
+	{"Rank": "3", "Name": "O'Hare International Airport", "City": "Chicago", "State": "IL", "Total_Passenger_2016": 37499201},
+	{"Rank": "4", "Name": "Dallas/Fort Worth International Airport", "City": "Dallas", "State": "TX", "Total_Passenger_2016": 31274875},
+	{"Rank": "5", "Name": "John F. Kennedy International Airport", "City": "New York", "State": "NY", "Total_Passenger_2016": 29224554}
+]}
