@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>67-328 HW11</title>
+        <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="./js/form.js"></script>
+    </head>
+<body>
+   <h1>Set and change attributes of a trip</h1><br>
+    <table>
+      <tr>
+        <th>Create</th>
+        <th>Retrieve</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+      <tr>
+        <td>
+            <form id="createForm">
+              Trip name<br>
+              (Change not allowed)<br>
+              <input type="text" name="trip" value="Thanksgiving Trip">
+              <br><br>
+              From where?<br>
+              <input type="text" name="depart" value="Pittsburgh">
+              <br>
+              To where?<br>
+              <input type="text" name="destination" value="San Francisco">
+              <br>
+              <br>
+              Departure Date<br>
+              <input type="date" name="dDate" value="">
+              <br>
+              Return Date<br>
+              <input type="date" name="rDate" value="">
+              <br>
+              <br>
+            </form> 
+            <button id="createBton">Create Trip</button>
+        </td>
+        <td>
+            <form id="retrieveForm">
+              Trip name<br>
+              <input type="text" name="trip" value="Thanksgiving Trip">
+              <br>
+              <br>
+            </form>
+            <button id="getBton">Get Trip</button>
+        </td>
+        <td>
+            <form id="updateForm">
+              Trip name<br>
+              <input type="text" name="trip" value="Thanksgiving Trip">
+              <br><br>
+              From where?<br>
+              <input type="text" name="depart" value="Pittsburgh">
+              <br>
+              To where?<br>
+              <input type="text" name="destination" value="San Francisco">
+              <br>
+              <br>
+              Departure Date<br>
+              <input type="date" name="dDate" value="">
+              <br>
+              Return Date<br>
+              <input type="date" name="rDate" value="">
+              <br>
+              <br>
+            </form>
+            <button id="updateBton">Update Trip</button>
+        </td>
+        <td>
+            <form id="deleteForm">
+              Trip name<br>
+              <input type="text" name="trip" value="Thanksgiving Trip">
+              <br><br>
+            </form>
+            <button id="deleteBton">Delete Trip</button>
+        </td>
+      </tr>
+    </table>
+   
+
+    <hr>
+    <h2>Information of the trip</h2>
+    <div id="responseArea"></div>
+    
+    
+    
+</body>
+</html>

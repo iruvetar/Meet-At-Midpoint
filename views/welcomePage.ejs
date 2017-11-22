@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Welcome to Meet at the mid points service">
+    <meta name="author" content="Yun-Tieh Chen">
+
+    <title>Let's travel in the middle</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- Custom styles for this template -->
+    <link href="css/landing-page.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <!-- Insert navbar ejs -->
+    <%- include ./navbar.ejs %>
+    
+
+    <!-- Header -->
+    <header class="intro-header">
+      <div class="container">
+        <div class="intro-message">
+          <h1>Travel in The Middle</h1>
+          <h3>A Destination Recommendation Service for Distant Couple</h3>
+          <hr class="intro-divider">
+          <div class="" id="startButtonContainer" align="center">
+          <a href="/service" class="btn btn-secondary btn-lg" id="startButton">
+          <i class="fa fa-plane" aria-hidden="true"></i>
+          <span class="network-name">Get started</span>
+          </a>
+          </div>
+<!--
+          <ul class="list-inline intro-social-buttons">
+            <li class="list-inline-item">
+              <a href="#" class="btn btn-secondary btn-lg">
+                <i class="fa fa-github fa-fw"></i>
+                <span class="network-name">Github</span>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#" class="btn btn-secondary btn-lg">
+                <i class="fa fa-linkedin fa-fw"></i>
+                <span class="network-name">Linkedin</span>
+              </a>
+            </li>
+          </ul>
+-->
+        </div>
+      </div>
+    </header>
+
+
+    <!-- Page Content -->
+    <section class="content-section-a">
+
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-7 ml-auto">
+            <hr class="section-heading-spacer">
+            <div class="clearfix"></div>
+            <h2 class="section-heading">Do you have  special one who lives far from you, and you find it difficult to find a new place for you two to go?</h2>
+            <p class="lead">This web application will recommend you where to meet and travel given your current locations.</p>
+          </div>
+          <div class="col-lg-3 mr-auto">
+            <img class="img-fluid" src="img/distant.jpg" alt="">
+          </div>
+        </div>
+
+      </div>
+      <!-- /.container -->
+    </section>
+
+    <section class="content-section-b">
+
+      <div class="container">
+
+        <div class="row">
+          <div class="col-lg-5 mr-auto order-lg-2">
+            <hr class="section-heading-spacer">
+            <div class="clearfix"></div>
+            <h2 class="section-heading">Get out of the comfort zone and find a place close to both of you</h2>
+            <p class="lead">Rather than visiting some places and stay at one of yours house, the recommendation system will find some candidates of destination that they are all among a fair distance for both of you!</p>
+          </div>
+          <div class="col-lg-5 ml-auto order-lg-1">
+            <img class="img-fluid" src="img/explore.jpeg" alt="">
+          </div>
+        </div>
+
+      </div>
+      <!-- /.container -->
+
+    </section>
+    <!-- /.content-section-b -->
+
+    <section class="content-section-a">
+
+      <div class="container">
+
+        <div class="row">
+          <div class="col-lg-10 ml-auto">
+
+            <div class="clearfix"></div>
+            <h2 class="section-heading">Getting Interested?</h2>
+            <p class="lead">
+                Just click the button below and enter departure locations in the next page.
+            </p>
+            <a href="/service" class="btn btn-secondary btn-lg" id="startButton">
+            <i class="fa fa-plane" aria-hidden="true"></i>
+            <span class="network-name">Get started</span>
+          </a>
+          </div>
+        </div>
+
+      </div>
+      <!-- /.container -->
+
+    </section>
+    <!-- /.content-section-a -->
+
+    <!-- Footer -->
+    <!-- Insert footer ejs -->
+    <%- include ./footer.ejs %>
+
+  </body>
+
+</html>

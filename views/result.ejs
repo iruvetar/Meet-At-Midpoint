@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Retrieval Result</title>
+</head>
+<body>
+    <% if (obj.length) { %>
+    [ <br>
+    <% obj.forEach(function(next) { %>
+    <%= JSON.stringify(next) %><br>
+    <%});%>
+    ]
+    <% } %>
+</body>
+    <form action="/">
+        <button>Back to Main Page</button>
+    </form>
+</html>
