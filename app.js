@@ -4,6 +4,10 @@ var fs = require('fs');
 var bodyParser = require('body-parser');
 var path = require('path');
 
+var passport = require('passport');
+var session = require('express-session');
+var flash = require('connect-flash');
+
 var express = require('express');
 var app = express();
 //Set the vies directory
@@ -19,6 +23,13 @@ app.use(morgan('common'));
 
 // Parse application/x-www-form-urlencoded, with extended qs library
 app.use(bodyParser.urlencoded({extended: true}));
+
+// required for passport
+app.use(session({ secret: 'sessionsecret' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
 
 // Load all routes in the routes directory
 fs.readdirSync('./routes').forEach(function(file) {

@@ -8,6 +8,24 @@ exports.init = function(app) {
     app.get('/service', getService); //Go to service page
     app.get('/author', getAuthor); //Go to self introduction page
     app.get('/resources'); //Go to resource page, plan to put the information about the APIs used and the template used. Like a readme.md file
+    
+    //process login form
+    //app.post('/login',dosomething);
+    
+    //show the login form
+    app.get('/login', function(req, res) {
+        res.render('loginPage', {message: req.flash('loginMessage')})
+    });
+    
+    //process signup form
+    //app.post('/signup', dosomething);
+    
+    //show the signup form
+    app.get('/signup', function(req, res) {
+        res.render('signupPage', {message: req.flash('loginMessage')})
+    });
+    
+    
     app.get('/trip', gettripOne) //Display the calculation result
     
     //For CRUD methods
@@ -86,4 +104,15 @@ var getService = function(req, res) {
 
 var getAuthor = function(req, res) {
     res.render('message', {title: 'Author Info', obj: "Author is Yun-Tieh Chen"});
+}
+
+// route middleware to make sure a user is logged in
+function isLoggedIn(req, res, next) {
+
+    // if user is authenticated in the session, carry on 
+    if (req.isAuthenticated())
+        return next();
+
+    // if they aren't redirect them to the home page
+    res.redirect('/');
 }
