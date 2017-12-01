@@ -280,4 +280,43 @@ $(document).ready(function () {
     $("#searchButton").on('click', searchFunctions);
     $(".dropdown-item").on('click', changeButtonText);
     $("#innerJsonButton").on('click', innerHttpRequest);
+    //Autocomplete
+    $(".airportSelect").autocomplete({
+        source: availableAirports
+    });
 });
+
+var availableAirports = [
+    "Hartsfield–Jackson Atlanta Airport (ATL)",
+    "O'Hare Chicago Airport (ORD)",
+    "Dallas/Fort Worth Airport (DFW)",
+    "John F. Kennedy Airport (JFK)",
+    "Denver Airport (Den)",
+    "San Francisco Airport (SFO)",
+    "McCarran Airport (LAS)",
+    "Charlotte Douglas Airport (CLT)",
+    "Seattle–Tacoma Airport (SEA)",
+    "Phoenix Sky Harbor Airport (PHX)",
+    "Miami Airport (MIA)",
+    "Orlando Airport (MCO)",
+    "George Bush Intercontinental Houston Airport (IAH)",
+    "Newark Liberty Airport (EWR)",
+    "Minneapolis–Saint Paul Airport (MSP)",
+    "Logan Boston Airport (BOS)",
+    "Detroit Metropolitan Airport (DTW)",
+    "Philadelphia Airport (PHL)",
+    "Salt Lake City Airport (SLC)",
+    "Midway Chicago Airport (MDW)",
+    "Portland Airport (PDX)",
+    "St. Louis Lambert Airport (STL)",
+    "Austin-Bergstrom Airport (AUS)",
+    "Nashville Airport (BNA)",
+    "Oakland Airport (OAK)",
+    "Louis Armstrong New Orleans Airport (MSY)",
+    "Raleigh-Durham Airport (RDU)",
+    "Ronald Reagan Washington National Airport (DCA)",
+    "Chicago Midway Airport (MDW)",
+    "San Jose Airport (SJC)",
+    "Los Angeles Airport (LAX)",
+    "Pittsburgh Airport (PIT)"
+];

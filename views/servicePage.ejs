@@ -30,58 +30,36 @@
           <div class="row">
             <div class="col">
                 <h3>You</h3>
-                <div class="dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Depart From
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <button class="dropdown-item" value="ATL">Atlanta International Airport(ATL)</button>
-                    <button class="dropdown-item" value="LAX">Los Angeles International Airport(LAX)</button>
-                    <button class="dropdown-item" value="ORD">O'Hare Chicago International Airport(ORD)</button>
-                    <button class="dropdown-item" value="DFW">Dallas/Fort Worth International Airport(DFW)</button>
-                    <button class="dropdown-item" value="JFK">John F. Kennedy International Airport(JFK)</button>
-                    <button class="dropdown-item" value="DEN">Denver International Airport(DEN)</button>
-                    <button class="dropdown-item" value="SFO">San Francisco International Airport(SFO)</button>
-                    <button class="dropdown-item" value="LAS">McCarran International Airport(LAS)</button>
-                    <button class="dropdown-item" value="SEA">Seattle–Tacoma International Airport(SEA)</button>
-                    <button class="dropdown-item" value="PIT">Pittsburgh International Airport(PIT)</button>
-                    <button class="dropdown-item" value="SJC">Norman Y. Mineta San José International Airport(SJC)</button>     
-                  </div>
-                </div>
             </div>
             <div class="col">
                 <h3>Depart Date</h3>
-                <div class="form-group row">
-                     <div class="col">
-                     </div>
-                      <div class="col">
-                        <input class="form-control" type="date" value="" id="departDate-input">
-                      </div>
-                      <div class="col">
-                     </div>
-                </div>
             </div>
             <div class="col">
               <h3>Your partner</h3>
-              <div class="dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Depart From
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <button class="dropdown-item" value="ATL">Atlanta International Airport(ATL)</button>
-                    <button class="dropdown-item" value="LAX">Los Angeles International Airport(LAX)</button>
-                    <button class="dropdown-item" value="ORD">O'Hare Chicago International Airport(ORD)</button>
-                    <button class="dropdown-item" value="DFW">Dallas/Fort Worth International Airport(DFW)</button>
-                    <button class="dropdown-item" value="JFK">John F. Kennedy International Airport(JFK)</button>
-                    <button class="dropdown-item" value="DEN">Denver International Airport(DEN)</button>
-                    <button class="dropdown-item" value="SFO">San Francisco International Airport(SFO)</button>
-                    <button class="dropdown-item" value="LAS">McCarran International Airport(LAS)</button>
-                    <button class="dropdown-item" value="SEA">Seattle–Tacoma International Airport(SEA)</button>
-                    <button class="dropdown-item" value="PIT">Pittsburgh International Airport(PIT)</button>
-                    <button class="dropdown-item" value="SJC">Norman Y. Mineta San José International Airport(SJC)</button>   
-                   </div>
-                </div>
             </div>
+          </div>
+          <div class="row">
+             <!-- The input form -->
+             <div class="col">
+                <div class="ui-widget">
+<!--                  <label for="tags">From: </label>-->
+                  <input class="airportSelect form-control" id="depart1" placeholder="Departure Airport">
+                </div>
+             </div>
+             <div class="col">
+                <input class="form-control" type="date" value="" id="departDate-input">
+             </div>
+             <div class="col">
+                <div class="ui-widget">
+<!--                  <label for="tags">From: </label>-->
+                  <input class="airportSelect form-control" id="depart2" placeholder="Departure Airport">
+                </div>
+             </div>
+          </div>
+          <div class="row">
+              <div class="col"></div>
+              <div class="col"></div>
+              <div class="col"></div>
           </div>
           <div class="row" id="alertRow">
             <div class="alert alert-danger" id="alertMessage" hidden="">
@@ -138,5 +116,6 @@
     <%- include ./footer.ejs %>
     <!-- Custome JavaScript -->
     <script src="js/service.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   </body>
 </html>
