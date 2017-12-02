@@ -98,25 +98,57 @@ var preTrip = function(req, res) {
         air1 = returnData;
         getAirport(iata2, function(returnData2) {
             air2 = returnData2;
-            calculateTrip(req,res,air1[0],air2[0],req.body.dDate);
+            calculateTrip(req,res,air1[0],air2[0],req.body.dDate, depart1, depart2);
         })
     });
 //Function that creates the trip search history
-var calculateTrip = function(req, res, air1, air2, dDate) {
+var calculateTrip = function(req, res, air1, air2, dDate, depart1, depart2) {
     console.log("Create trip on server side.");
     //Object that holds the latitude and longtitude
     var middlePoint = trip.getMidPoint(air1, air2);
     var midAirports = trip.getMidAirports(middlePoint.lat, middlePoint.long, function(returnJson) {
         console.log("Controller receive json");
-        checkAirport(returnJson);
+        checkAirport(returnJson, req, res, depart1, depart2);
     });
 }
 
-var checkAirport = function(airportList) {
-    console.log("check airport");
+//mongo db query format:
+//{
+//    "key": {
+//        "$in": [
+//            "PIT",
+//            "LAX"
+//        ]
+//    }
+//}
+var checkAirport = function(airportList, req, res, depart1, depart2) {
+    console.log("check airports");
+    var array = [];
     for (let i = 0; i < airportList.length; i++) {
-        console.log(airportList[i].code);
+        let iataKey = array.push(airportList[i].code);
     }
+    console.log(array);
+    var subquery = {
+        "$in" : array
+    };
+    var query = {
+        key : subquery
+    };
+    
+        mongoModel.retrieve("Airports",
+                        query,
+                        function(modelData) {
+        if (modelData.length) {
+            console.log("Recommended Destination: ");
+            console.log(modelData);
+            //modelData is an array
+            res.render('resultPage', {obj : modelData, depart1 : depart1, depart2 : depart2});
+        } else {
+            console.log("NO airport info back");
+            var message = "No documents with the iata code: " + iata + " in collection Airports.";
+            res.render('message', {title: 'Retrieve Demo', obj: message});
+        }
+    });
 }
 var createTrip = function() {
     
