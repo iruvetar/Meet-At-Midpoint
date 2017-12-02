@@ -194,3 +194,11 @@ ul.ui-autocomplete {
 
 }
 .ui-helper-hidden-accessible { display:none; }
+
+.fa {
+    display: inline-block;
+    width: 100%;
+}
+td i {
+    text-align:center;
+}

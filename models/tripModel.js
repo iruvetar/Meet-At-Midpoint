@@ -42,7 +42,69 @@ exports.getMidAirports = function(midLat, midLong, callback) {
     });
 }
 
+exports.getAirfare = function(airportArray, placeCode, date, callback) {
+    //Object return from mongoDB
+    var destinationCode = airportArray[0].key;
+    
+    var bodyObj = {
+      "request": {
+        "slice": [
+          {
+            "origin": placeCode,
+            "destination": destinationCode,
+            "date": date
+          }
+        ],
+        "passengers": {
+          "adultCount": 1,
+          "infantInLapCount": 0,
+          "infantInSeatCount": 0,
+          "childCount": 0,
+          "seniorCount": 0
+        },
+        "solutions": 1,
+        "refundable": false
+      }
+    }
+    
+    console.log("Making ajax request for airfare.....");
+/*
+var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'https://www.googleapis.com/qpxExpress/v1/trips/search?key=AIzaSyD3eFiCwJPtgcaTbOE2Y4PWkL2FQqzWnQg',true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    
 
+    
+    xhr.send(JSON.stringify(body));
+    xhr.onload = function() {
+    // process the response.
+     airfareResponse1(xhr.responseText);
+    };
+    xhr.onerror = function() {
+      console.log('There was an error');
+    };
+*/
+    var options = {
+        method: 'POST',
+        url: 'https://www.googleapis.com/qpxExpress/v1/trips/search?key=AIzaSyD3eFiCwJPtgcaTbOE2Y4PWkL2FQqzWnQg',
+        strictSSL: false,
+//    secureProtocol: 'TLSv1_method',
+        body: bodyObj,
+        json:true
+    };
+    //The unit of the distance queyr parameter is kilometres 
+    request.post(options, function(err, res) {
+        if (err) {
+            console.log(err);
+            return;
+        } else {
+            console.log("Airfare 1 Ajax done: ");
+            console.log(res.body.trips.tripOption[0].saleTotal);
+            //return price
+            callback(res.body.trips.tripOption[0].saleTotal);
+        }
+    });
+}
 
 exports.getTrip = function(name) {
     let t = {};
