@@ -1,4 +1,4 @@
-//var mongoModel = require("../models/mongoModel.js");
+var mongoModel = require("../models/mongoModel.js");
 var trip = require('../models/tripModel.js');
 var fs = require('fs');
 
@@ -30,8 +30,8 @@ exports.init = function(app) {
     
     //For CRUD methods
     app.get("/trip/:name", gettripOne);
-    app.put("/trip/:name/:depart/:to/:fromDate/:toDate", createTrip);
-    app.post("/trip", updateTrip);
+//    app.put("/trip/:name/:depart/:to/:fromDate/:toDate", createTrip);
+    app.post("/trip", preTrip);
     app.delete("/trip/:name", deleteTrip); 
 }
 
@@ -60,7 +60,7 @@ var deleteTrip = function(req, res) {
     });
 }
 var updateTrip = function(req, res) {
-
+    
     var filter = req.body.find? JSON.parse(req.body.find) : {};
     if (!req.body.update) {
         res.render('message', {title: 'Update', obj: "No update operation defined"});
@@ -72,24 +72,80 @@ var updateTrip = function(req, res) {
         res.render('message', {title: 'Update Done', obj: status});
     });
 }
-// Handle the put route
-var createTrip = function(req, res) {
-    console.log(req);
-//    if (Object.keys(req.body).length == 0) {
-//        console.log('No req body');
-//        res.render('message',{title:'Create Error', obj:"No create message body found"});
-//        return;
-//    }
+
+// Handle the trip route
+var preTrip = function(req, res) {
+    console.log(req.body);
+    if (Object.keys(req.body).length == 0) {
+        console.log('No req body');
+        res.render('message',{title:'Create Error', obj:"No create message body found"});
+        return;
+    }
     
+    console.log("Prepareing to create trip...");
+    
+    //process param body
+    var depart1 = req.body.depart1;
+    var iata1 = depart1.substring(depart1.indexOf("(") + 1, depart1.indexOf("(") + 4);
+    depart1 = depart1.substring(0, depart1.indexOf("("));
+    
+    var depart2 = req.body.depart2;
+    var iata2 = depart2.substring(depart2.indexOf("(") + 1, depart2.indexOf("(") + 4);
+    depart2 = depart2.substring(0, depart2.indexOf("("));
+    
+    var air1 = null, air2 = null;
+    getAirport(iata1, function(returnData) {
+        air1 = returnData;
+        getAirport(iata2, function(returnData2) {
+            air2 = returnData2;
+            calculateTrip(req,res,air1[0],air2[0],req.body.dDate);
+        })
+    });
+//Function that creates the trip search history
+var calculateTrip = function(req, res, air1, air2, dDate) {
     console.log("Create trip on server side.");
-    //Get a trip object
-    var tripObj = trip.addTrip(req.params.name,req.params.depart,req.params.to,req.params.fromDate, req.params.toDate);
-    //Call the model create method
-    mongoModel.create(trip.collectionName,
-                     tripObj, function(result) {
-        var success = (result ? "Create Successful" : "Create Failed");
-        console.log("Callback receive: " + success);
-        res.render('message', {title: 'Create Obj', obj: success});
+    //Object that holds the latitude and longtitude
+    var middlePoint = trip.getMidPoint(air1, air2);
+    var midAirports = trip.getMidAirports(middlePoint.lat, middlePoint.long, function(returnJson) {
+        console.log("Controller receive json");
+        checkAirport(returnJson);
+    });
+}
+
+var checkAirport = function(airportList) {
+    console.log("check airport");
+    for (let i = 0; i < airportList.length; i++) {
+        console.log(airportList[i].code);
+    }
+}
+var createTrip = function() {
+    
+}
+//    //Get a trip object
+//    var tripObj = trip.addTrip(req.params.name,req.params.depart,req.params.to,req.params.fromDate, req.params.toDate);
+//    //Call the model create method
+//    mongoModel.create(trip.collectionName,
+//                     tripObj, function(result) {
+//        var success = (result ? "Create Successful" : "Create Failed");
+//        console.log("Callback receive: " + success);
+//        res.render('message', {title: 'Create Obj', obj: success});
+//    });
+}
+
+var getAirport = function(iata, callback) {
+
+    var queryObj = {key : iata};
+    
+    mongoModel.retrieve("Airports",
+                        queryObj,
+                        function(modelData) {
+        if (modelData.length) {
+            callback(modelData);
+        } else {
+            console.log("NO airport info back");
+            var message = "No documents with the iata code: " + iata + " in collection Airports.";
+            res.render('message', {title: 'Retrieve Demo', obj: message});
+        }
     });
 }
 

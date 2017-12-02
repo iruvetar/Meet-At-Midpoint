@@ -1,16 +1,3 @@
-//An array used by some of the functions below
-var airportMap = [];
-airportMap.push({key: "ATL", name: "ATL airport", lat: 33, long: -84});
-airportMap.push({key: "LAX", name: "LAX airport", lat: 33, long: -118});
-airportMap.push({key: "ORD", name: "ORD airport", lat: 41, long: -87});
-airportMap.push({key: "DFW", name: "DFW airport", lat: 32, long: -97});
-airportMap.push({key: "JFK", name: "JFK airport", lat: 40, long: -76});
-airportMap.push({key: "DEN", name: "DEN airport", lat: 39, long: -104});
-airportMap.push({key: "SFO", name: "SFO airport", lat: 37, long: -122});
-airportMap.push({key: "LAS", name: "LAS airport", lat: 36, long: -115});
-airportMap.push({key: "SEA", name: "SEA airport", lat: 47, long: -122});
-airportMap.push({key: "PIT", name: "PIT airport", lat: 40, long: -80});
-airportMap.push({key: "SJC", name: "SJC airport", lat: 37, long: -121});
 //A variable stores the airport code for the recommended result
 var destinationCode = '';
 
@@ -232,54 +219,51 @@ function mapReset (p1, p2) {
     $("#googleMapFrame").attr('src', prefix + p1 + ' airport' + middle + p2 + ' airport' + end);
 }
 
-//Update the text of the dropdown button as soon as the user selects the airport
-function changeButtonText() {
-    var destination = this.value;
-    $(this).parent().prev().text(destination);
-}
-
-//A ajax function that sends request to my own server and retrieve the json content
-function innerHttpRequest() {
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange=function() {
-        if (xhr.readyState == 4) {
-            if(xhr.status == 200) {
-                processInnerResponse(xhr.responseText);
-            } else {
-                responseArea.innerHTML="Error code " + xhr.status;
-            }
+//This function is used to validate the input information before submit the parameters to the controller
+//The validation check point includes date check because google QPX API will cause problem when the date is older than current date
+//Another validation check point is to check whether the input is a valid name of an airport
+//To avoid the word matching complexity, I simply force the user to select the airport from the autocomplete dropdown list
+function validateForm() {
+    //Get value from html
+    var place1 = $("#depart1").val(), place2 = $("#depart2").val(), date = $("#departDate").val();
+    
+    //Validate date
+    if (date == "") {
+        alert("Please select a future date.");
+        return false;
+    }
+    //Create a date object
+    var d = new Date(date);
+    var today = new Date();
+    
+    //Validate date
+    if (d.getTime() < today.getTime()) {
+        alert(`The date must be a future date.
+For your reference, today is ${today}.`);
+        return false;
+    } else {
+        //Date is validated, check input airports
+        if (validateAirport(place1) == false || validateAirport(place2) == false) {
+            alert("Please select the airport from the dropdown list provided.");
+            return false;
         }
     }
     
-    xhr.open("GET", "airports.json", true);
-    xhr.send();
+    return true;
 }
-//Process the Json content stored in our own server
-function processInnerResponse(responseJSON) {
-    var responseAirports = JSON.parse(responseJSON);
-    var displayText = "<br>These are the top 5 busiest airports in the United States. Thus they are included in the dropdown list you have seen on top of this page.<br><br><table class=\"table table-bordered\"><thead><tr><th>Rank<\/th><th>Name<\/th><th>Location<\/th><th># of Passengers in 2016<\/th><\/tr><\/thead>";
 
-    for (var i = 0; i < responseAirports.Airport.length; i++) {
-        var airport = responseAirports.Airport[i];
-        displayText +="<tr>" + 
-                        "<td>"+ airport.Rank + "<\/td>" + 
-                        "<td>"+ airport.Name + "<\/td>" + 
-                        "<td>"+ airport.City + ", " + airport.State + "<\/td>" +
-                        "<td>"+ airport.Total_Passenger_2016 + "<\/td>" +
-                      "<\/tr>";
-
+function validateAirport(str) {
+    for (let i = 0; i < availableAirports.length; i++) {
+        if (str === availableAirports[i]) {
+            return true;
+        }
     }
-    displayText += "<\/table>";
-    $(".response-area").last().html(displayText);
+    return false;
 }
-
-
 //Some event listeners
 $(document).ready(function () {
     $("#loadingIcon").hide();
-    $("#searchButton").on('click', searchFunctions);
-    $(".dropdown-item").on('click', changeButtonText);
-    $("#innerJsonButton").on('click', innerHttpRequest);
+//    $("#searchButton").on('click', searchFunctions);
     //Autocomplete
     $(".airportSelect").autocomplete({
         source: availableAirports

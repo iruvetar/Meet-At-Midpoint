@@ -25,6 +25,8 @@
     
      <!-- Header -->
     <header class="service-header">
+     <!-- The input form -->
+      <form action="/trip" method="post" onsubmit="return validateForm()">
       <div class="container" id="service-container1">
         <div class="container">
           <div class="row">
@@ -39,20 +41,19 @@
             </div>
           </div>
           <div class="row">
-             <!-- The input form -->
              <div class="col">
                 <div class="ui-widget">
 <!--                  <label for="tags">From: </label>-->
-                  <input class="airportSelect form-control" id="depart1" placeholder="Departure Airport">
+                  <input type="text" name="depart1" class="airportSelect form-control" id="depart1" placeholder="Departure Airport">
                 </div>
              </div>
              <div class="col">
-                <input class="form-control" type="date" value="" id="departDate-input">
+                <input type="date" name="dDate" class="form-control"  value="" id="departDate">
              </div>
              <div class="col">
                 <div class="ui-widget">
 <!--                  <label for="tags">From: </label>-->
-                  <input class="airportSelect form-control" id="depart2" placeholder="Departure Airport">
+                  <input type="text" name="depart2" class="airportSelect form-control" id="depart2" placeholder="Departure Airport">
                 </div>
              </div>
           </div>
@@ -69,7 +70,8 @@
           </div>
         </div>
         <br>
-        <a class="btn btn-dark btn-lg js-scroll-trigger" id="searchButton">Get Destinations</a>
+        <input class="btn btn-dark btn-lg js-scroll-trigger" id="searchButton" type="submit" value="Get Destinations">
+        </form>
       </header>
     
     <!-- Page Content -->
@@ -90,18 +92,7 @@
       <i class="fa fa-spinner fa-pulse fa-3x fa-fw" id = "loadingIcon"></i>
       </div>
     </section>
-    
-    <!-- Page Content -->
-    <section class="content-section-a">
 
-      <div class="container">
-        <button type = "button" class="btn btn-lg" id="innerJsonButton">More Information</button>
-        <div class="row">
-            <div class="response-area" id = "innerJsonArea"></div>
-        </div>
-      </div>
-      <!-- /.container -->
-    </section>
     <!-- Map -->
     <!--Google  API key : AIzaSyD3eFiCwJPtgcaTbOE2Y4PWkL2FQqzWnQg-->
     <section>
