@@ -290,7 +290,6 @@ var availableAirports = [
     "Detroit Metropolitan Airport (DTW)",
     "Philadelphia Airport (PHL)",
     "Salt Lake City Airport (SLC)",
-    "Midway Chicago Airport (MDW)",
     "Portland Airport (PDX)",
     "St. Louis Lambert Airport (STL)",
     "Austin-Bergstrom Airport (AUS)",
@@ -302,5 +301,6 @@ var availableAirports = [
     "Chicago Midway Airport (MDW)",
     "San Jose Airport (SJC)",
     "Los Angeles Airport (LAX)",
-    "Pittsburgh Airport (PIT)"
+    "Pittsburgh Airport (PIT)",
+    "Raleigh Durham Airport (RDU)"
 ];

@@ -36,20 +36,20 @@
     <section class="content-section-a">
       
       <div class="container">
-       <!-- If Error Message Received -->
        <% if (errMsg) { %>
+       <!-- If Error Message Received -->
         <div class="row">
             <div class="response-area">
                <i class="fa fa-exclamation-triangle fa-2x" aria-hidden="true"></i><%= errMsg %>
             </div>
         </div>
-       <!-- Correct Output Received -->
        <%} else {%>
+       <!-- Correct Output Received -->
         <div class="row">
             <div class="response-area2">
-                <h3>Recommendation Results for flight on <%= date %></h3>
+                <h2>Recommendation Results for flight on <%= date %></h2>
+                <br><hr><br>
                 <table>
-                   
                     <tr>
                         <td><i class="fa fa-map-marker fa-2x" aria-hidden="true"></i></td>
                         <td></td>
@@ -62,15 +62,15 @@
                         <td><i class="fa fa-map-marker fa-2x" aria-hidden="true"></i></td>
                     </tr>
                     <tr>
-                        <td><%= place1 %></td>
-                        <td>  </td>
+                        <td><h4><%= place1 %></h4></td>
+                        <td>   </td>
                         <td><i class="fa fa-long-arrow-right" aria-hidden="true"></i></td>
-                        <td>  </td>
-                        <td><%= destination[0].name %></td>
-                        <td>  </td>
+                        <td>   </td>
+                        <td><h4 id="highlightRes"><%= destination[0].name + " (" + destination[0].key + ")"%></h4></td>
+                        <td>   </td>
                         <td><i class="fa fa-long-arrow-left" aria-hidden="true"></i></td>
-                        <td>  </td>
-                        <td><%= place2 %></td>
+                        <td>   </td>
+                        <td><h4><%= place2 %></h4></td>
                     </tr>
                     <tr>
                         <td></td>
@@ -87,6 +87,10 @@
             </div>
         </div>
        <%}%>
+          <br><br><br>
+          <a href="/service" class="btn btn-secondary btn-lg">
+          <span class="network-name">Search Again</span>
+          </a>
       </div>
     </section>
 

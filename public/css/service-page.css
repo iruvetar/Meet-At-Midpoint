@@ -202,3 +202,9 @@ ul.ui-autocomplete {
 td i {
     text-align:center;
 }
+td {
+    text-align:center;
+}
+#highlightRes {
+    color: red;
+}
