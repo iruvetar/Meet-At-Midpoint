@@ -12,6 +12,7 @@ var express = require('express');
 var app = express();
 
 // Configuration ======
+// Id and password not hidden yet, plan to solve it in near future.
 var connection_string = 'mongodb://meetatmidpointUser:meetatmidpointiscool@ds113566.mlab.com:13566/meetatmidpoint';
 
 mongoose.connect(connection_string);

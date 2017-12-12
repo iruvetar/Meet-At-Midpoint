@@ -16,6 +16,7 @@
 
     <!-- Custom styles for this template -->
     <link href="css/service-page.css" rel="stylesheet">
+    <link href="css/result-page.css" rel="stylesheet">
 
 </head>
 <body>
@@ -27,8 +28,8 @@
     <!--Google  API key : AIzaSyD3eFiCwJPtgcaTbOE2Y4PWkL2FQqzWnQg-->
     <section>
         <div class="google-map">
-        <iframe id="googleMapFrame" width="100%" height="450" frameborder="0" scrolling="no"
-        src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyD3eFiCwJPtgcaTbOE2Y4PWkL2FQqzWnQg&origin=<%= depart1 %>&destination=<%= depart2 %>&mode=flying" allowfullscreen></iframe>
+        <iframe id="googleMapFrame" width="100%" height="300" frameborder="0" scrolling="no" style="border:0" 
+        src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyD3eFiCwJPtgcaTbOE2Y4PWkL2FQqzWnQg&origin=<%= depart1 %>&waypoints=<%=destination[0].name%>&destination=<%= depart2 %>&mode=driving" allowfullscreen></iframe>
         </div>
     </section>
     
@@ -75,11 +76,11 @@
                     <tr>
                         <td></td>
                         <td>  </td>
-                        <td>$ <%= fare1 %></td>
+                        <td><h4>$ <%= fare1 %></h4></td>
                         <td>  </td>
                         <td></td>
                         <td>  </td>
-                        <td>$ <%= fare2 %></td>
+                        <td><h4>$ <%= fare2 %></h4></td>
                         <td>  </td>
                         <td></td>
                     </tr>

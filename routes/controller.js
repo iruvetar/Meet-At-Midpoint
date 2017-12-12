@@ -3,13 +3,16 @@ var trip = require('../models/tripModel.js');
 var fs = require('fs');
 
 exports.init = function(app, passport) {
-    //Full Page
+    //Welcome and landing Page
     app.get('/', index);
     
-    app.get('/author', getAuthor); //Go to self introduction page
+    //Self introduction page
+    app.get('/author', getAuthor);
+    
+    //Go to the Github page
     app.get('/resources', function(req, res) {
         res.redirect('https://github.com/iruvetar/Meet-At-Midpoint');
-    }); //Go to resource page, plan to put the information about the APIs used and the template used. Like a readme.md file
+    }); 
     
 
     
@@ -50,8 +53,10 @@ exports.init = function(app, passport) {
     // ====================
     // Only available if logged in
     // ====================
-    app.get('/service', isLoggedIn, getService); //Go to service page
-    app.post("/trip", isLoggedIn, preTrip);//Display the calculation result
+    //The service page
+    app.get('/service', isLoggedIn, getService); 
+    //The result page
+    app.post("/trip", isLoggedIn, preTrip);
     
     // ====================
     // Logout===============
@@ -63,54 +68,13 @@ exports.init = function(app, passport) {
     });
     
     
-    //For CRUD methods
-//    app.get("/trip/:name", gettripOne);
-//    app.put("/trip/:name/:depart/:to/:fromDate/:toDate", createTrip);
-    
-//    app.delete("/trip/:name", deleteTrip); 
 }
 
-//var gettripOne = function(req, res) {
-//    var query = trip.getTrip(req.params.name);
-//    mongoModel.retrieve(trip.collectionName,
-//                        query,
-//                        function(modelData) {
-//        if (modelData.length) {
-//            res.render('result',{title: 'Retrieve Demo', obj: modelData});
-//        } else {
-//            var message = "No documents with " + JSON.stringify(req.query) + " in collection" + req.params.collection + " found.";
-//            res.render('message', {title: 'Retrieve Demo', obj: message});
-//        }
-//    });
-//}
-
-//exports.delete = function(collection, filter, option, callback) {
-
-//var deleteTrip = function(req, res) {
-//    
-////    var filter = req.body.find? JSON.parse(req.body.find) : {};
-//    var tripObj = trip.deleteTrip(req.params.name);
-//    mongoModel.delete(trip.collectionName, tripObj, null, function(status) {
-//        res.render('message', {title: 'Delete Done', obj: status});
-//    });
-//}
-//var updateTrip = function(req, res) {
-//    
-//    var filter = req.body.find? JSON.parse(req.body.find) : {};
-//    if (!req.body.update) {
-//        res.render('message', {title: 'Update', obj: "No update operation defined"});
-//    }
-//
-//    var update = JSON.parse(req.body.update);
-//    console.log(update);
-//    mongoModel.update(trip.collectionName, filter, update, function(status) {
-//        res.render('message', {title: 'Update Done', obj: status});
-//    });
-//}
+// =====Functions===========
 
 // Handle the trip route
 var preTrip = function(req, res) {
-    console.log(req.body);
+    
     if (Object.keys(req.body).length == 0) {
         console.log('No req body');
         res.render('message',{title:'Create Error', obj:"No create message body found"});
@@ -138,7 +102,25 @@ var preTrip = function(req, res) {
     });
 }
 
-//Function that creates the trip search history
+//Function that return airport object from mongoDB given iata code
+var getAirport = function(iata, callback) {
+
+    var queryObj = {key : iata};
+    
+    mongoModel.retrieve("Airports",
+                        queryObj,
+                        function(modelData) {
+        if (modelData.length) {
+            callback(modelData);
+        } else {
+            console.log("NO airport info back");
+            var message = "No documents with the iata code: " + iata + " in collection Airports.";
+            res.render('message', {title: 'Retrieve Demo', obj: message});
+        }
+    });
+}
+
+//Function that creates the trip with two airport objects
 var calculateTrip = function(req, res, air1, air2, dDate, depart1, iata1, depart2, iata2) {
     console.log("Create trip on server side.");
     //Object that holds the latitude and longtitude
@@ -149,22 +131,23 @@ var calculateTrip = function(req, res, air1, air2, dDate, depart1, iata1, depart
     });
 }
 
-//mongo db query format:
-//{
-//    "key": {
-//        "$in": [
-//            "PIT",
-//            "LAX"
-//        ]
-//    }
-//}
+//Function that filter out unpopular airports by checking the data in the airport collection
 var checkAirport = function(airportList, req, res, depart1, iata1, depart2, iata2) {
     console.log("check airports");
     var array = [];
     for (let i = 0; i < airportList.length; i++) {
-        let iataKey = array.push(airportList[i].code);
+        var iataKey = array.push(airportList[i].code);
     }
     console.log(array);
+    //mongo db query format:
+    //{
+    //    "key": {
+    //        "$in": [
+    //            "PIT",
+    //            "LAX"
+    //        ]
+    //    }
+    //}
     var subquery = {
         "$in" : array
     };
@@ -209,36 +192,8 @@ var checkAirport = function(airportList, req, res, depart1, iata1, depart2, iata
     });
 }
 
-var createTrip = function() {
-    
-}
-//    //Get a trip object
-//    var tripObj = trip.addTrip(req.params.name,req.params.depart,req.params.to,req.params.fromDate, req.params.toDate);
-//    //Call the model create method
-//    mongoModel.create(trip.collectionName,
-//                     tripObj, function(result) {
-//        var success = (result ? "Create Successful" : "Create Failed");
-//        console.log("Callback receive: " + success);
-//        res.render('message', {title: 'Create Obj', obj: success});
-//    });
 
 
-var getAirport = function(iata, callback) {
-
-    var queryObj = {key : iata};
-    
-    mongoModel.retrieve("Airports",
-                        queryObj,
-                        function(modelData) {
-        if (modelData.length) {
-            callback(modelData);
-        } else {
-            console.log("NO airport info back");
-            var message = "No documents with the iata code: " + iata + " in collection Airports.";
-            res.render('message', {title: 'Retrieve Demo', obj: message});
-        }
-    });
-}
 
 // Render the homepage of the web application to the user
 var index = function(req, res) {
@@ -252,6 +207,7 @@ var getService = function(req, res) {
     res.render('servicePage');
 }
 
+// Render the author page of the web application to the user
 var getAuthor = function(req, res) {
     res.locals.login = req.isAuthenticated();
     res.render('message', {title: 'Author Info', obj: "Author is Yun-Tieh Chen"});

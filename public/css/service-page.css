@@ -41,6 +41,18 @@ body, h1, h2, h3, h4, h5, h6 {
   .intro-divider {
     width: 100%;
   }
+    h3 {
+        font-size:16px;
+    }
+    
+    #inputRow div{
+        padding-right:1%;
+        padding-left:1%;
+        padding-bottom: 1%;
+    }
+    #inputRow input{
+        font-size:9px;
+    }
 }
 .img-fluid {
     margin-top: 40px;

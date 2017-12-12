@@ -1,8 +1,11 @@
 //request is a module that makes http calls.
 var request = require('request');
 
-exports.collectionName = 'TripHistory';
+//In the future, I plan to put the search history in this collection
+//exports.collectionName = 'TripHistory';
 
+
+//This function calculates the midpoint given to location object
 exports.getMidPoint = function (l1, l2) {
     //simply calculate the mid point
     let midLat = (l1.lat + l2.lat) / 2;
@@ -29,7 +32,7 @@ exports.getMidAirports = function(midLat, midLong, callback) {
         qs: {lat: midLat,lng: midLong, distance: "500"},
         json:true
     };
-    //The unit of the distance queyr parameter is kilometres 
+    //The unit of the distance query parameter is kilometres 
     request.get(options, function(err, res) {
         if (err) {
             console.log(err);
@@ -42,6 +45,9 @@ exports.getMidAirports = function(midLat, midLong, callback) {
     });
 }
 
+//This function handles request to Google QPX API
+//This API provides information about real-time airfare and flight information
+//Will return an array containing all the suggested airports near the midpoint
 exports.getAirfare = function(airportArray, placeCode, date, callback) {
     //Object return from mongoDB
     var destinationCode = airportArray[0].key;
@@ -88,11 +94,10 @@ var xhr = new XMLHttpRequest();
         method: 'POST',
         url: 'https://www.googleapis.com/qpxExpress/v1/trips/search?key=AIzaSyD3eFiCwJPtgcaTbOE2Y4PWkL2FQqzWnQg',
         strictSSL: false,
-//    secureProtocol: 'TLSv1_method',
         body: bodyObj,
         json:true
     };
-    //The unit of the distance queyr parameter is kilometres 
+    
     request.post(options, function(err, res) {
         if (err) {
             console.log(err);
@@ -106,24 +111,3 @@ var xhr = new XMLHttpRequest();
     });
 }
 
-exports.getTrip = function(name) {
-    let t = {};
-    t["name"] = name;
-    return t;
-}
-exports.addTrip = function(name, departure, destination, date1, date2) {
-    let newTrip = {};
-    newTrip["name"] = name;
-    newTrip["dep"] = departure;
-    newTrip["des"] = destination;
-    newTrip["dDate"] = date1;
-    newTrip["rDate"] = date2;
-    return newTrip;
-}
-
-
-exports.deleteTrip = function(target) {
-    let trip = {};
-    trip["name"] = target;
-    return trip;
-}
