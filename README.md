@@ -12,14 +12,16 @@ Start Bootstrap is an open source library of free Bootstrap templates and themes
 * Airport information is provided by [IATACodes](http://iatacodes.org/)
 * Airfare is provided by [Google QPX](https://developers.google.com/qpx-express/), which will unfortunately end on April 10, 2018 
 * Google Map
-* Bootstrap
-* jQuery
 * Implementation of authentication scheme (Signup/login) takes the instruction of the [easy node authentication setup and local tutorial on Scotch.io](https://scotch.io/tutorials/easy-node-authentication-setup-and-local#toc-database-config-configdatabasejs) as refernece.
  
 
-## Copyright and License
+## Copyright
 
 Copyright 2017 [Yun-Tieh Chen](https://www.linkedin.com/in/yuntiehc/)
-
-
 Last updated: Dec 11th, 2017
+
+## License
+- Font Awesome: http://fontawesome.io/license
+- Bootstrap: http://getbootstrap.com | https://github.com/twbs/bootstrap/blob/master/LICENSE (Code licensed under MIT documentation under CC BY 3.0.)
+- jQuery: https://jquery.org | (Code licensed under MIT)
+
