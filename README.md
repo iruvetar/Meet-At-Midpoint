@@ -1,7 +1,7 @@
 # Travel in the middle
 
 
-[Travel in the middle](https://meetatourmidpoint-uwrkofwvaf.now.sh) is a web application built as the final proejct for course 67-328 at Carnegie Mellon Unversity. It's designed to serve couple in a distant relationship or for those who want to meet and travel with a friend who resides far away. This application recommends you where to meet and provide a cheapeast airfare information if you two want to travel to the given destination.
+[Travel in the middle](https://meetatourmidpoint-aeokggrdlp.now.sh) is a web application built as the final proejct for course 67-328 at Carnegie Mellon Unversity. It's designed to serve couple in a distant relationship or for those who want to meet and travel with a friend who resides far away. This application recommends you where to meet and provide a cheapeast airfare information if you two want to travel to the given destination.
 
 
 
